@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ceny akcií Applu</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Ceny akcií Applu</h1>
+    <canvas id="stockChart"></canvas>
+
+    <script>
+        let dates = {{ dates | tojson }};
+        let prices = {{ prices | tojson }};
+
+        let ctx = document.getElementById('stockChart').getContext('2d');
+        let stockChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Ceny akcií k jednotlivým datům',
+                    data: prices,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Datum'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Cena (USD)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
